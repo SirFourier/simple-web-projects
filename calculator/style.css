@@ -1,0 +1,36 @@
+body {
+  background-color: rgb(81, 177, 161);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 60px;
+}
+
+.container {
+  background-color: rgb(44, 100, 91);
+  width: 310px;
+  margin: 100px auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  background-color: rgb(99, 241, 218);
+  border-radius: 10px;
+  padding: 5px;
+  text-align: right;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  background-color: rgb(27, 177, 169);
+  width: 33.33333%;
+  text-align: center;
+}
+
+.container * {
+    margin: 5px;
+    border-radius: 10px;
+}
