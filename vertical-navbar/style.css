@@ -15,22 +15,23 @@ body {
   border-radius: 5px;
 }
 
-.navbar button {
-  display: block;
-  margin: auto;
-}
-
-.navbar {
-  padding: 10px;
-}
-
-.navbar a {
+.navbar .fa-bars,
+a {
   text-decoration: none;
   display: block;
-  margin: 10px 0 10px 0;
+  padding: 12px;
+  overflow: hidden;
 }
 
 .navbar a:hover {
-  background-color: rgb(49, 47, 47);
-  border-radius: 5px;
+  background-color: rgb(29, 29, 29);
 }
+
+.navbar .fa-bars:hover {
+  cursor: pointer;
+}
+
+.navbar .active {
+  background-color: rgb(95, 95, 95);
+}
+
