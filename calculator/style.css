@@ -11,6 +11,7 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .screen {
@@ -26,11 +27,18 @@ body {
 
 .col {
   background-color: rgb(27, 177, 169);
-  width: 33.33333%;
   text-align: center;
+  flex-basis: 25%;
 }
 
-.container * {
-    margin: 5px;
-    border-radius: 10px;
+.col:hover {
+  cursor: pointer;
+  background-color:white;
+}
+
+.screen,
+.col {
+  border-radius: 10px;
+  justify-content: center;
+  margin: 5px;
 }
