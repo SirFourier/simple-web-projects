@@ -19,7 +19,7 @@ body {
 }
 
 .row > div {
-  flex-basis: 100%;
+  flex: 1;
   border-radius: 10px;
   margin: 5px;
 }
