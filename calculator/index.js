@@ -5,13 +5,11 @@ updateScreen = (string) => {
   document.getElementById("screen").innerHTML = string;
 };
 
-// current stored calculation
+// current stored calculation and operation boolean
 let calculation = "";
-
-// is there a current operation stored?
 let operation = false;
 
-// calculation logic
+// evaluate calculation string
 calculate = () => {
   // calculate and return result
   return String(eval(calculation));
