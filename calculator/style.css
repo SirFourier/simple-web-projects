@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(81, 177, 161);
+  background-color: rgb(70, 153, 139);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 60px;
 }
@@ -31,9 +31,9 @@ body {
 }
 
 .button {
-  background-color: rgb(99, 241, 218);
-  user-select: none;
+  background-color: rgb(129, 252, 231);
   text-align: center;
+  user-select: none;
 }
 
 .button:hover {
