@@ -12,7 +12,7 @@ h1 {
 .container {
   display: flex;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: auto;
 }
 
@@ -27,13 +27,13 @@ img {
   margin: 10px;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
     .inner-container {
         max-width: 50%;
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 675px) {
     .inner-container {
         max-width: 100%;
     }
