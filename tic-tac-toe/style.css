@@ -27,7 +27,12 @@ body {
   position: relative;
 }
 
-.grid-item div div {
+.grid-item:hover {
+  cursor: pointer;
+}
+
+/* make the components of rings and crosses absolutely positioned */
+.grid-item > div > div {
   position: absolute;
 }
 
@@ -54,9 +59,4 @@ body {
 
 .cross .second-line {
   transform: rotate(-45deg);
-}
-
-/* turn off both ring and cross of nth child*/
-.grid-container > div:nth-child(1) div {
-  visibility: visible;
 }
