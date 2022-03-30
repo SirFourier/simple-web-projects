@@ -39,6 +39,11 @@ const gridContainer = createElement(
 );
 document.body.appendChild(gridContainer);
 
+// create reset button
+const resetButton = createElement("button", "reset");
+resetButton.innerHTML = "Reset";
+document.body.appendChild(resetButton);
+
 // class to contain the state of the grid item
 class GridItem {
   constructor(item) {
@@ -74,8 +79,14 @@ const gridItems = [...gridContainer.childNodes].map(
   (item) => new GridItem(item)
 );
 
-// current player
-let currentPlayer = "ring";
+// reset functionalitys
+resetButton.onclick = () => {
+  gridItems.forEach((item) => {
+    item.item.style.backgroundColor = "white";
+    item.state = "";
+    item.clear();
+  });
+};
 
 // numbers are the index in the grid array
 // 0 1 2
@@ -96,23 +107,37 @@ const winStates = [
   [2, 4, 6],
 ];
 
-function checkWinState(items, index) {
+function colourWinning(line) {
+  line.forEach((item) => {
+    item.item.style.backgroundColor = "black";
+    innerCircles = document.querySelectorAll(".inner-circle"); 
+  });
+}
+
+function checkWinState(index) {
   // find the lines that need to be checked i.e. find the arrays that contain the index
   statesToCheck = winStates.filter((state) => state.includes(index));
 
   // use the indexes from each state to check for win condition in the grid
   let win = false;
   statesToCheck.forEach((state) => {
+    const itemsToCheck = gridItems.filter((_, index) => state.includes(index));
     if (
-      items[state[0]].state === items[state[1]].state &&
-      items[state[1]].state === items[state[2]].state
+      itemsToCheck.reduce((a, b) => {
+        return a.state === b.state ? a : NaN;
+      })
     ) {
       win = true;
+      colourWinning(itemsToCheck);
     }
   });
   return win;
 }
 
+// current player
+let currentPlayer = "ring";
+
+// add click event listener to each item
 gridItems.forEach((item, index) => {
   item.item.addEventListener("click", () => {
     if (!item.filled()) {
@@ -124,6 +149,6 @@ gridItems.forEach((item, index) => {
         currentPlayer = "ring";
       }
     }
-    console.log(checkWinState(gridItems, index));
+    console.log(checkWinState(index));
   });
 });

@@ -5,7 +5,7 @@ body {
 
 .grid-container {
   display: grid;
-  margin: 100px auto;
+  margin: 40px auto;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   gap: 10px;
   width: 500px;
@@ -27,7 +27,7 @@ body {
   position: relative;
 }
 
-.grid-item:hover {
+.grid-item:hover, .reset {
   cursor: pointer;
 }
 
@@ -59,4 +59,12 @@ body {
 
 .cross .second-line {
   transform: rotate(-45deg);
+}
+
+.reset {
+  display: block;
+  margin: auto;
+  width: 100px;
+  height: 40px;
+  font-size: 30px;
 }
