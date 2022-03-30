@@ -5,7 +5,7 @@ body {
 
 .grid-container {
   display: grid;
-  margin: 20% auto;
+  margin: 100px auto;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   gap: 10px;
   width: 500px;
