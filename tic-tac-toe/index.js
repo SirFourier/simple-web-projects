@@ -30,7 +30,7 @@ const cross = {
 // setup grid item template
 const gridItemTemplate = new Child("div", "grid-item");
 
-// create grid container
+// create grid container that contains grid items
 const gridContainer = createElement(
   "div",
   "grid-container",
@@ -45,14 +45,17 @@ class GridItem {
     this.ring = ring.create();
     this.cross = cross.create();
     this.item = item;
+    this.state = "";
   }
 
   addRing() {
     this.item.appendChild(this.ring);
+    this.state = "o";
   }
 
   addCross() {
     this.item.appendChild(this.cross);
+    this.state = "x";
   }
 
   filled() {
@@ -74,11 +77,43 @@ const gridItems = [...gridContainer.childNodes].map(
 // current player
 let currentPlayer = "ring";
 
-function checkWinState() {
-    gridItems
+// numbers are the index in the grid array
+// 0 1 2
+// 3 4 5
+// 6 7 8
+// win states:
+const winStates = [
+  // horizontal
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  // vertical
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  // diagonal
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+function checkWinState(items, index) {
+  // find the lines that need to be checked i.e. find the arrays that contain the index
+  statesToCheck = winStates.filter((state) => state.includes(index));
+
+  // use the indexes from each state to check for win condition in the grid
+  let win = false;
+  statesToCheck.forEach((state) => {
+    if (
+      items[state[0]].state === items[state[1]].state &&
+      items[state[1]].state === items[state[2]].state
+    ) {
+      win = true;
+    }
+  });
+  return win;
 }
 
-gridItems.forEach((item) => {
+gridItems.forEach((item, index) => {
   item.item.addEventListener("click", () => {
     if (!item.filled()) {
       if (currentPlayer === "ring") {
@@ -89,5 +124,6 @@ gridItems.forEach((item) => {
         currentPlayer = "ring";
       }
     }
+    console.log(checkWinState(gridItems, index));
   });
 });
