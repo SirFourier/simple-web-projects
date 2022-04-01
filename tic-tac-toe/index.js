@@ -147,6 +147,7 @@ function checkWinState(index) {
     ) {
       win = true;
       colourWinning(itemsToCheck);
+      gameState = "complete";
     }
   });
   return win;
@@ -155,19 +156,21 @@ function checkWinState(index) {
 // add click event listener to each item
 gridItems.forEach((item, index) => {
   item.item.addEventListener("click", () => {
-    if (!item.filled()) {
-      if (gameState === "reset") {
-        gameState = "playing";
+    if (gameState !== "complete") {
+      if (!item.filled()) {
+        if (gameState === "reset") {
+          gameState = "playing";
+        }
+        if (currentPlayer === "Ring") {
+          item.addRing();
+          currentPlayer = "Cross";
+        } else {
+          item.addCross();
+          currentPlayer = "Ring";
+        }
       }
-      if (currentPlayer === "Ring") {
-        item.addRing();
-        currentPlayer = "Cross";
-      } else {
-        item.addCross();
-        currentPlayer = "Ring";
-      }
+      checkWinState(index);
     }
-    checkWinState(index);
   });
 });
 
