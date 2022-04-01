@@ -15,6 +15,7 @@ const createElement = (tag, attributes = [], values = [], children = []) => {
   return element;
 };
 
+// returns an array of generated elements
 const createElements = (
   tag,
   amount,
