@@ -1,14 +1,13 @@
 // setup template classes for generating children
 // setup rings
 const ring = {
-  outerCircle: new Child("div", "outer-circle"),
-  innerCircle: new Child("div", "inner-circle"),
+  circle: new Child("div", "circle"),
   create() {
     return createElement(
       "div",
       "ring",
-      [this.outerCircle, this.innerCircle],
-      [1, 1]
+      [this.circle],
+      [1]
     );
   },
 };
@@ -109,8 +108,7 @@ const winStates = [
 
 function colourWinning(line) {
   line.forEach((item) => {
-    item.item.style.backgroundColor = "black";
-    innerCircles = document.querySelectorAll(".inner-circle"); 
+    item.item.style.backgroundColor = "greenyellow";
   });
 }
 
