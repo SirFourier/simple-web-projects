@@ -1,53 +1,31 @@
 // setup template classes for generating children
 // setup rings
-const ring = {
-  circle: new Child("div", "circle"),
-  create() {
-    return createElement(
-      "div",
-      "ring",
-      [this.circle],
-      [1]
-    );
-  },
+const createRing = () => {
+  const circle = createElement("div", ["class"], ["circle"]);
+  return createElement("div", ["class"], ["ring"], [circle]);
 };
 
 // setup crosses
-const cross = {
-  firstLine: new Child("div", "first-line"),
-  secondLine: new Child("div", "second-line"),
-  create() {
-    return createElement(
-      "div",
-      "cross",
-      [this.firstLine, this.secondLine],
-      [1, 1]
-    );
-  },
+const createCross = () => {
+  const firstLine = createElement("div", ["class"], ["first-line"]);
+  const secondLine = createElement("div", ["class"], ["second-line"]);
+  return createElement("div", ["class"], ["cross"], [firstLine, secondLine]);
 };
 
-// setup grid item template
-const gridItemTemplate = new Child("div", "grid-item");
-
-// create grid container that contains grid items
+// create grid container that contains 9 grid items
 const gridContainer = createElement(
   "div",
-  "grid-container",
-  [gridItemTemplate],
-  [9]
+  ["class"],
+  ["grid-container"],
+  createElements("div", 9, ["class"], ["grid-item"]),
 );
 document.body.appendChild(gridContainer);
 
-// create reset button
-const resetButton = createElement("button", "reset");
-resetButton.innerHTML = "Reset";
-document.body.appendChild(resetButton);
-
-// class to contain the state of the grid item
+// class to contain the state of each grid item
 class GridItem {
   constructor(item) {
-    this.ring = ring.create();
-    this.cross = cross.create();
+    this.ring = createRing();
+    this.cross = createCross();
     this.item = item;
     this.state = "";
   }
@@ -77,15 +55,6 @@ class GridItem {
 const gridItems = [...gridContainer.childNodes].map(
   (item) => new GridItem(item)
 );
-
-// reset functionalitys
-resetButton.onclick = () => {
-  gridItems.forEach((item) => {
-    item.item.style.backgroundColor = "white";
-    item.state = "";
-    item.clear();
-  });
-};
 
 // numbers are the index in the grid array
 // 0 1 2
@@ -147,6 +116,46 @@ gridItems.forEach((item, index) => {
         currentPlayer = "ring";
       }
     }
-    console.log(checkWinState(index));
+    checkWinState(index);
   });
 });
+
+// // label for first player selection
+// const firstPlayerLabel = createElement("label", "first-player-label");
+// firstPlayerLabel.setAttribute("for", "first-player");
+// firstPlayerLabel.innerHTML = "Choose the first player:";
+// document.body.appendChild(firstPlayerLabel);
+
+// // create first player selection
+// const firstPlayerSelection = createElement(
+//   "select",
+//   ["class", "name"],
+//   ["first-player", "first-player"],
+//   [],
+//   []
+// );
+// document.body.appendChild(firstPlayerSelection);
+
+// // create playerRing and playerCross option
+// const playerRingOption = createElement("option", "player-ring-option");
+// const playerCrossOption = createElement("option", "player-cross-option");
+// playerRingOption.setAttribute("value", "ring");
+// playerCrossOption.setAttribute("value", "cross");
+// playerRingOption.innerHTML = "Ring";
+// playerCrossOption.innerHTML = "Cross";
+// firstPlayerSelection.appendChild(playerRingOption);
+// firstPlayerSelection.appendChild(playerCrossOption);
+
+// create reset button
+const resetButton = createElement("button", ["class"], ["reset"]);
+resetButton.innerHTML = "Reset";
+document.body.appendChild(resetButton);
+
+// reset logic
+resetButton.onclick = () => {
+  gridItems.forEach((item) => {
+    item.item.style.backgroundColor = "white";
+    item.state = "";
+    item.clear();
+  });
+};
