@@ -1,3 +1,36 @@
+// tic-tac-toe logic
+
+// label for first player selection element
+const firstPlayerLabel = createElement(
+  "label",
+  ["class", "for"],
+  ["first-player-label", "first-player"]
+);
+firstPlayerLabel.innerHTML = "Choose the first player:";
+
+// create ring and cross option
+const ringOption = createElement("option", ["value"], ["Ring"]);
+const crossOption = createElement("option", ["value"], ["Cross"]);
+ringOption.innerHTML = "Ring";
+crossOption.innerHTML = "Cross";
+
+// create first player selection
+const firstPlayerSelection = createElement(
+  "select",
+  ["class", "name", "onchange"],
+  ["first-player-select", "first-player", "setFirstPlayer()"],
+  [ringOption, crossOption]
+);
+
+// create container for first player selection
+const firstPlayerContainer = createElement(
+  "div",
+  ["class"],
+  ["first-player-container"],
+  [firstPlayerLabel, firstPlayerSelection]
+);
+document.body.appendChild(firstPlayerContainer);
+
 // setup template classes for generating children
 // setup rings
 const createRing = () => {
@@ -17,7 +50,7 @@ const gridContainer = createElement(
   "div",
   ["class"],
   ["grid-container"],
-  createElements("div", 9, ["class"], ["grid-item"]),
+  createElements("div", 9, ["class"], ["grid-item"])
 );
 document.body.appendChild(gridContainer);
 
@@ -81,6 +114,24 @@ function colourWinning(line) {
   });
 }
 
+function getValueOfSelect() {
+  const select = firstPlayerSelection;
+  return select.options[select.selectedIndex].value;
+}
+
+let gameState = "reset";
+let currentPlayer = "Ring";
+
+function setFirstPlayer() {
+  const value = getValueOfSelect();
+  // only change the current player on reset
+  if (gameState === "reset") {
+    currentPlayer = value;
+  }
+}
+
+setFirstPlayer();
+
 function checkWinState(index) {
   // find the lines that need to be checked i.e. find the arrays that contain the index
   statesToCheck = winStates.filter((state) => state.includes(index));
@@ -101,50 +152,24 @@ function checkWinState(index) {
   return win;
 }
 
-// current player
-let currentPlayer = "ring";
-
 // add click event listener to each item
 gridItems.forEach((item, index) => {
   item.item.addEventListener("click", () => {
     if (!item.filled()) {
-      if (currentPlayer === "ring") {
+      if (gameState === "reset") {
+        gameState = "playing";
+      }
+      if (currentPlayer === "Ring") {
         item.addRing();
-        currentPlayer = "cross";
+        currentPlayer = "Cross";
       } else {
         item.addCross();
-        currentPlayer = "ring";
+        currentPlayer = "Ring";
       }
     }
     checkWinState(index);
   });
 });
-
-// // label for first player selection
-// const firstPlayerLabel = createElement("label", "first-player-label");
-// firstPlayerLabel.setAttribute("for", "first-player");
-// firstPlayerLabel.innerHTML = "Choose the first player:";
-// document.body.appendChild(firstPlayerLabel);
-
-// // create first player selection
-// const firstPlayerSelection = createElement(
-//   "select",
-//   ["class", "name"],
-//   ["first-player", "first-player"],
-//   [],
-//   []
-// );
-// document.body.appendChild(firstPlayerSelection);
-
-// // create playerRing and playerCross option
-// const playerRingOption = createElement("option", "player-ring-option");
-// const playerCrossOption = createElement("option", "player-cross-option");
-// playerRingOption.setAttribute("value", "ring");
-// playerCrossOption.setAttribute("value", "cross");
-// playerRingOption.innerHTML = "Ring";
-// playerCrossOption.innerHTML = "Cross";
-// firstPlayerSelection.appendChild(playerRingOption);
-// firstPlayerSelection.appendChild(playerCrossOption);
 
 // create reset button
 const resetButton = createElement("button", ["class"], ["reset"]);
@@ -158,4 +183,6 @@ resetButton.onclick = () => {
     item.state = "";
     item.clear();
   });
+  gameState = "reset";
+  setFirstPlayer();
 };
